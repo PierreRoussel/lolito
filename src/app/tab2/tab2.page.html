@@ -7,24 +7,40 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="history-container">
-    @for (item of records; track item.id) {
-    <div
-      [class]="item.isWin ? 'history-container__item win':'history-container__item loose'"
-    >
-      <div class="history__item-avatar">@if(item.isWin) { W } @else {L}</div>
-      <div class="history-content">
-        <div class="history-date-death">
-          <div class="history__item-date">{{ item.date }}</div>
+  <div>
+    <div *ngFor="let group of groupedRecords" class="history-container">
+      <ion-item-divider>
+        <ion-label>{{ group.date }}</ion-label>
+      </ion-item-divider>
+      @for (item of group.matches; track item.id) {
+      <div
+        [class]="item.isWin ? 'history-container__item win':'history-container__item loose'"
+        [class.new-item]="isNewItem(item.id)"
+      >
+        <div class="history__item-avatar">@if(item.isWin) { W } @else {L}</div>
+        <div class="history-content">
+          <div class="history-date-death">
+            <div class="history__item-date">{{ item.date }}</div>
 
-          <div class="history__item-deaths">{{ item.deaths }} morts</div>
+            <div class="history__item-deaths">{{ item.deaths }} morts</div>
+          </div>
+
+          <div class="history__item-pushups"><b>{{item.pushupNumber}}</b> pompes</div>
         </div>
-
-        <div class="history__item-pushups">{{item.pushupNumber}} pompes</div>
       </div>
+      } @empty {
+      <div>Calmo pepito, pompe d'abord.</div>
+      }
     </div>
-    } @empty {
-    <div>Calmo pepito, pompe d'abord.</div>
-    }
   </div>
 </ion-content>
+<ion-footer class="ion-no-border ion-text-center ion-padding">
+  <ion-button
+    size="large"
+    color="primary"
+    shape="round"
+    (click)="refreshRecords()"
+  >
+    <ion-icon [name]="'refresh'" slot="icon-only" class="theme-icon"></ion-icon>
+  </ion-button>
+</ion-footer>

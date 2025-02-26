@@ -8,7 +8,7 @@
   --on-primary: rgb(255 255 255);
   --primary-container: rgb(39 113 223);
   --on-primary-container: rgb(254 252 255);
-  --secondary: rgb(73 94 137);
+  --secondary: #495e89;
   --on-secondary: rgb(255 255 255);
   --secondary-container: rgb(183 204 253);
   --on-secondary-container: rgb(65 86 128);
@@ -97,6 +97,20 @@
   --ion-card-color: var(--on-surface-variant);
   --ion-color-step-850: var(--primary-container);
   --highlight-color-focused: var(--primary-fixed);
+
+  --ion-color-secondary: var(--secondary);
+  // --ion-color-secondary-rgb:;
+  --ion-color-secondary-contrast: var(--secondary-container);
+  // --ion-color-secondary-contrast-rgb:;
+  --ion-color-secondary-shade: var(--on-secondary-container);
+  --ion-color-secondary-tint: var(--secondary-fixed);
+
+  .ion-color-secondary {
+    --ion-color-secondary: var(--secondary);
+    --ion-color-secondary-contrast: var(--secondary-container);
+    --ion-color-secondary-shade: var(--on-secondary-container);
+    --ion-color-secondary-tint: var(--secondary-fixed);
+  }
 }
 
 .ion-palette-dark,
