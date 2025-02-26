@@ -1,6 +1,5 @@
 <app-header title="Historique" />
 
-
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -8,6 +7,24 @@
     </ion-toolbar>
   </ion-header>
 
-  Calmo pepito, j'ai pas encore fait
+  <div class="history-container">
+    @for (item of records; track item.id) {
+    <div
+      [class]="item.isWin ? 'history-container__item win':'history-container__item loose'"
+    >
+      <div class="history__item-avatar">
+        @if(item.isWin) {
+          W
+        } @else {L}
+      </div>
+      <div class="history-content">
+        <div class="history__item-deaths">{{ item.deaths }} morts</div>
 
+        <div class="history__item-pushups">{{item.pushupNumber}} pompes</div>
+      </div>
+    </div>
+    } @empty {
+    <div>Calmo pepito, pompe d'abord.</div>
+    }
+  </div>
 </ion-content>
