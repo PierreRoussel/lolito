@@ -1,0 +1,33 @@
+.custom-loading {
+  --background: rgba(0, 0, 0, 0);
+  --spinner-color: var(--primary);
+  position: absolute;
+  inset: 0;
+  background-color: var(--surface);
+
+  .loading-wrapper {
+    height: 100%;
+    width: 100%;
+    box-shadow: none;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+body {
+  color: var(--on-surface);
+}
+
+
+ion-card {
+  border-radius: var(--border-radius-l);
+}

@@ -1,0 +1,157 @@
+// For information on how to create your own theme, please see:
+// http://ionicframework.com/docs/theming/
+:root,
+:root.md,
+:root.ios {
+  --primary: rgb(0 88 189);
+  --surface-tint: rgb(0 90 193);
+  --on-primary: rgb(255 255 255);
+  --primary-container: rgb(39 113 223);
+  --on-primary-container: rgb(254 252 255);
+  --secondary: rgb(73 94 137);
+  --on-secondary: rgb(255 255 255);
+  --secondary-container: rgb(183 204 253);
+  --on-secondary-container: rgb(65 86 128);
+  --tertiary: rgb(139 54 160);
+  --on-tertiary: rgb(255 255 255);
+  --tertiary-container: rgb(167 81 187);
+  --on-tertiary-container: rgb(255 251 255);
+  --error: rgb(186 26 26);
+  --on-error: rgb(255 255 255);
+  --error-container: rgb(255 218 214);
+  --on-error-container: rgb(147 0 10);
+  --background: rgb(249 249 255);
+  --on-background: rgb(25 27 34);
+  --surface: rgb(249 249 255);
+  --on-surface: rgb(25 27 34);
+  --surface-variant: rgb(222 226 242);
+  --on-surface-variant: rgb(66 71 83);
+  --outline: rgb(114 119 133);
+  --outline-variant: rgb(194 198 213);
+  --shadow: rgb(0 0 0);
+  --scrim: rgb(0 0 0);
+  --inverse-surface: rgb(46 48 56);
+  --inverse-on-surface: rgb(239 240 250);
+  --inverse-primary: rgb(173 198 255);
+  --primary-fixed: rgb(216 226 255);
+  --on-primary-fixed: rgb(0 26 65);
+  --primary-fixed-dim: rgb(173 198 255);
+  --on-primary-fixed-variant: rgb(0 68 148);
+  --secondary-fixed: rgb(216 226 255);
+  --on-secondary-fixed: rgb(0 26 65);
+  --secondary-fixed-dim: rgb(177 198 247);
+  --on-secondary-fixed-variant: rgb(49 70 111);
+  --tertiary-fixed: rgb(253 214 255);
+  --on-tertiary-fixed: rgb(52 0 66);
+  --tertiary-fixed-dim: rgb(244 174 255);
+  --on-tertiary-fixed-variant: rgb(114 28 137);
+  --surface-dim: rgb(216 217 227);
+  --surface-bright: rgb(249 249 255);
+  --surface-container-lowest: rgb(255 255 255);
+  --surface-container-low: rgb(242 243 253);
+  --surface-container: rgb(236 237 247);
+  --surface-container-high: rgb(231 231 241);
+  --surface-container-highest: rgb(225 226 235);
+
+  --color: var(--on-surface);
+
+  --gap-s: 4px;
+  --gap: 8px;
+  --gap-m: 12px;
+  --gap-l: 16px;
+  --gap-xl: 24px;
+  --gap-xxl: 32px;
+  --gap-xxxl: 40px;
+
+  --border-radius: 8px;
+  --border-radius-s: 4px;
+  --border-radius-l: 16px;
+
+  --font-size-base: 16px;
+  --font-size-h1: 32px;
+  --font-size-h2: 24px;
+  --font-size-h3: 20px;
+  --font-size-h4: 16px;
+  --font-size-h5: 14px;
+  --font-size-h6: 12px;
+
+  --ion-background-color: var(--surface); //Background color of the entire app
+  --ion-background-color-rgb: 244, 251, 249; //Background color of the entire app, rgb format
+  --ion-text-color: var(--text-1); //Text color of the entire app
+  --ion-backdrop-color: var(--surface-dark); //Color of the Backdrop component
+  --ion-backdrop-opacity: 0.3; //Opacity of the Backdrop component
+  --ion-overlay-background-color: var(--surface); //Background color of the overlays
+  --ion-border-color: var(--text-3); //Border color
+  --ion-box-shadow-color: var(--shadow); //Box shadow color
+  --ion-tab-bar-background: var(--surface); //Background of the Tab Bar
+  --ion-tab-bar-border-color: var(--surface); //Border color of the Tab Bar
+  --ion-tab-bar-color-selected: var(--primary); //Color of the selected Tab Button
+  --ion-toolbar-background: transparent; //Background of the Toolbar
+  --ion-item-color: var(--on-surface);
+
+  --ion-text-color: var(--on-surface);
+  --ion-text-color-rgb: 25, 27, 34;
+
+  --ion-card-background: var(--surface-container);
+  --ion-item-background: transparent;
+  --ion-card-color: var(--on-surface-variant);
+  --ion-color-step-850: var(--primary-container);
+  --highlight-color-focused: var(--primary-fixed);
+}
+
+.ion-palette-dark,
+.ion-palette-dark.ios,
+.ion-palette-dark.md,
+[data-theme="dark"] {
+  --primary: rgb(173 198 255) !important;
+  --surface-tint: rgb(173 198 255) !important;
+  --on-primary: rgb(0 46 105) !important;
+  --primary-container: rgb(77 142 254) !important;
+  --on-primary-container: rgb(0 31 75) !important;
+  --secondary: rgb(177 198 247) !important;
+  --on-secondary: rgb(25 48 87) !important;
+  --secondary-container: rgb(52 73 114) !important;
+  --on-secondary-container: rgb(163 184 232) !important;
+  --tertiary: rgb(244 174 255) !important;
+  --on-tertiary: rgb(85 0 106) !important;
+  --tertiary-container: rgb(198 109 218) !important;
+  --on-tertiary-container: rgb(60 0 75) !important;
+  --error: rgb(255 180 171) !important;
+  --on-error: rgb(105 0 5) !important;
+  --error-container: rgb(147 0 10) !important;
+  --on-error-container: rgb(255 218 214) !important;
+  --background: rgb(17 19 26) !important;
+  --on-background: rgb(225 226 235) !important;
+  --surface: rgb(17 19 26) !important;
+  --on-surface: rgb(225 226 235) !important;
+  --surface-variant: rgb(66 71 83) !important;
+  --on-surface-variant: rgb(194 198 213) !important;
+  --outline: rgb(140 144 159) !important;
+  --outline-variant: rgb(66 71 83) !important;
+  --shadow: rgb(0 0 0) !important;
+  --scrim: rgb(0 0 0) !important;
+  --inverse-surface: rgb(225 226 235) !important;
+  --inverse-on-surface: rgb(46 48 56) !important;
+  --inverse-primary: rgb(0 90 193) !important;
+  --primary-fixed: rgb(216 226 255) !important;
+  --on-primary-fixed: rgb(0 26 65) !important;
+  --primary-fixed-dim: rgb(173 198 255) !important;
+  --on-primary-fixed-variant: rgb(0 68 148) !important;
+  --secondary-fixed: rgb(216 226 255) !important;
+  --on-secondary-fixed: rgb(0 26 65) !important;
+  --secondary-fixed-dim: rgb(177 198 247) !important;
+  --on-secondary-fixed-variant: rgb(49 70 111) !important;
+  --tertiary-fixed: rgb(253 214 255) !important;
+  --on-tertiary-fixed: rgb(52 0 66) !important;
+  --tertiary-fixed-dim: rgb(244 174 255) !important;
+  --on-tertiary-fixed-variant: rgb(114 28 137) !important;
+  --surface-dim: rgb(17 19 26) !important;
+  --surface-bright: rgb(54 57 64) !important;
+  --surface-container-lowest: rgb(11 14 21) !important;
+  --surface-container-low: rgb(25 27 34) !important;
+  --surface-container: rgb(29 32 38) !important;
+  --surface-container-high: rgb(39 42 49) !important;
+  --surface-container-highest: rgb(50 53 60) !important;
+
+  --ion-text-color-rgb: 225, 226, 235;
+}

@@ -1,0 +1,29 @@
+<app-header title="Mon profil" />
+
+<ion-content [fullscreen]="true">
+  <div class="user-container">
+    <div class="pattern"></div>
+    <app-avatar />
+    <span class="user-pseudo"> {{userInfo?.displayName}} </span>
+  </div>
+  <ion-card class="ion-padding">
+    <ion-list>
+      <ion-item>
+        <ion-icon aria-hidden="true" name="mail" slot="start"></ion-icon>
+        <ion-label>{{userInfo?.email}}</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon aria-hidden="true" name="medal" slot="start"></ion-icon>
+        <ion-label>Félicitation, vous pompez bien</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-padding">
+    <ion-button (click)="logout()" expand="block" [color]="'danger'"
+      >Me déconnecter</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

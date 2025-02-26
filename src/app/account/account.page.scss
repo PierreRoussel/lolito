@@ -1,0 +1,26 @@
+.user-container {
+  position: relative;
+  margin-top: 0;
+  height: 15vh;
+
+  app-avatar {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) translateY(25%);
+  }
+
+  .user-pseudo {
+    position: absolute;
+    bottom: calc(-18vw);
+    text-align: center;
+    font-size: var(--font-size-h3);
+    color: var(--primary);
+    left: 0;
+    right: 0;
+  }
+}
+
+ion-card {
+  margin-top: 25vw !important;
+}

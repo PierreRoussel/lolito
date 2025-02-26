@@ -1,0 +1,36 @@
+// src/app/theme-switcher/theme-switcher.component.scss
+.theme-toggle {
+  --padding-start: 0;
+  --padding-end: 0;
+  width: 40px;
+  height: 40px;
+  --background-hover: transparent;          // Remove background change on hover
+  --background-hover-opacity: 0;           // Remove opacity change
+  --color-hover: inherit;
+  &:hover {
+    --background: transparent;
+    --opacity: 1;
+  }
+
+}
+
+.theme-icon {
+  font-size: 24px;
+  transition: all 0.5s ease;
+
+  // Rotate and scale animation
+  &[name="moon"] {
+    color: var(--text-2);
+    transform: rotate(0deg) scale(1);
+  }
+
+  &[name="sunny"] {
+    color: var(--sunflower);
+    transform: rotate(180deg) scale(1.1);
+  }
+}
+
+// Ensure this works with Ionic's shadow DOM
+:host {
+  display: block;
+}
