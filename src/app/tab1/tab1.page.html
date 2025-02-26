@@ -8,9 +8,13 @@
   </div>
   <ion-card>
     <ion-card-header>
-      <ion-card-title>Nouveau match</ion-card-title>
+      <ion-card-title>
+        @if (!newRecord?.pushupNumber){ Nouveau match }@else { Tu dois pomper
+        }</ion-card-title
+      >
     </ion-card-header>
 
+    @if (!newRecord?.pushupNumber) {
     <ion-card-content [ngClass]="'content-container'">
       <ion-item>
         <ion-label position="floating">Nombre de morts</ion-label>
@@ -46,5 +50,12 @@
         >Enregistrer</ion-button
       >
     </ion-card-content>
+    } @else {
+    <ion-card-content [ngClass]="'content-container'">
+      <h2>{{newRecord.pushupNumber}}</h2>
+    </ion-card-content>
+    <ion-button class="ion-padding" expand="block" (click)="resetForm()"
+      >Valider</ion-button
+    >}
   </ion-card>
 </ion-content>

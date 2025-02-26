@@ -4,6 +4,7 @@ import { PushupService } from '../services/pushups/pushup.service';
 import { UserInfo } from '../services/supabase/supabase.model';
 import { SupabaseService } from '../services/supabase/supabase.service';
 import { getPushUpNumber } from '../utils/pushup-calculator.utils';
+import { LoadingService } from '../services/loading/loading.service';
 
 @Component({
   selector: 'app-tab1',
@@ -25,7 +26,8 @@ export class Tab1Page {
 
   constructor(
     private matchService: PushupService,
-    private supabaseService: SupabaseService
+    private supabaseService: SupabaseService,
+    private loadingService: LoadingService
   ) {
     this.loadRecords();
   }
@@ -39,16 +41,15 @@ export class Tab1Page {
 
   async loadRecords() {
     this.records = await this.matchService.getRecords();
+    console.log('🚀 ~ this.records:', this.records);
   }
 
   async saveMatch() {
-    const pushUpNumber = getPushUpNumber(this.newRecord);
-    console.log('🚀 ~ pushUpNumber:', pushUpNumber);
-    // if (this.newRecord.deaths >= 0) {
-    //   await this.matchService.addRecord({ ...this.newRecord });
-    //   this.resetForm();
-    //   await this.loadRecords();
-    // }
+    if (this.newRecord.deaths >= 0) {
+      const pushUpNumber = getPushUpNumber(this.newRecord);
+      this.newRecord.pushupNumber = pushUpNumber;
+      this.matchService.addRecord({ ...this.newRecord });
+    }
   }
 
   resetForm() {
