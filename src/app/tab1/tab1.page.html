@@ -31,27 +31,19 @@
       </ion-item>
       <ion-item *ngIf="newRecord.hasPentakill">
         <ion-label position="floating">Nombre de Pentakills</ion-label>
-        <ion-input type="number" [(ngModel)]="newRecord.deaths"></ion-input>
+        <ion-input
+          type="number"
+          [(ngModel)]="newRecord.pentakillNumber"
+        ></ion-input>
       </ion-item>
 
       <ion-item>
         <ion-label>Abandon</ion-label>
-        <ion-toggle
-          [(ngModel)]="newRecord.hasSurrender"
-          (ionChange)="onSurrenderChange()"
-        ></ion-toggle>
+        <ion-toggle [(ngModel)]="newRecord.hasSurrender"></ion-toggle>
       </ion-item>
 
-      <ion-item *ngIf="newRecord.hasSurrender">
-        <ion-label>Equipe qui a abandonné</ion-label>
-        <ion-select [(ngModel)]="newRecord.surrenderingTeam">
-          <ion-select-option value="blue">Alliés</ion-select-option>
-          <ion-select-option value="red">Ennemis</ion-select-option>
-        </ion-select>
-      </ion-item>
-
-      <ion-button expand="block" (click)="saveMatch()"
-        >Enregistre le match</ion-button
+      <ion-button class="ion-padding" expand="block" (click)="saveMatch()"
+        >Enregistrer</ion-button
       >
     </ion-card-content>
   </ion-card>

@@ -17,22 +17,6 @@ export class AppComponent {
   }
 
   async initializeApp() {
-    // await this.loadingService.showLoading({ duration: 4000 });
-
-    // this.platform.ready().then(async () => {
-    //   // Put your initialization logic here
-    //   // For example, loading config, checking auth, etc.
-    //   try {
-    //     await this.performInitialSetup();
-    //   } catch (error) {
-    //     console.error('Initialization error:', error);
-    //   } finally {
-    //     await this.loadingService.hideLoading();
-    //   }
-    // });
-  }
-
-  private async performInitialSetup() {
-    // Simulate some async initialization tasks
+    await this.loadingService.showLoading({ duration: 500 });
   }
 }

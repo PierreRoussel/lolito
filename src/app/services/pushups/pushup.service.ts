@@ -1,37 +1,55 @@
 // src/app/services/pushup.service.ts
 import { Injectable } from '@angular/core';
 import { PushupRecord } from './pushup.model';
+import { SupabaseService } from '../supabase/supabase.service';
 // import { Storage } from '@ionic/storage-angular';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PushupService {
-  private _storage: Storage | null = null;
-  private readonly STORAGE_KEY = 'pushup_records';
+  constructor(private supabaseService: SupabaseService) {}
 
-  constructor() { // private storage: Storage
-    this.init();
-  }
+  async addRecord(record: PushupRecord): Promise<PushupRecord> {
+    const { data: session } = await this.supabaseService.getSession();
+    if (!session?.session) {
+      throw new Error('User not authenticated');
+    }
 
-  async init() {
-    // const storage = await this.storage.create();
-    // this._storage = storage;
-  }
+    const newRecord = {
+      ...record,
+      player: session.session.user.id,
+    };
 
-  async addRecord(record: PushupRecord) {
-    const records = await this.getRecords();
-    record.id = Date.now().toString();
-    record.date = new Date();
-    records.push(record);
-    console.log('🚀 ~ record:', record);
-    // await this._storage?.set(this.STORAGE_KEY, records);
-    return record;
+    const { data, error } = await this.supabaseService.client
+      .from('match')
+      .insert(newRecord)
+      .select()
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return data as PushupRecord;
   }
 
   async getRecords(): Promise<PushupRecord[]> {
-    // const records = await this._storage?.get(this.STORAGE_KEY);
-    // return records || [];
-    return [];
+    const { data: session } = await this.supabaseService.getSession();
+    if (!session.session?.user) {
+      return [];
+    }
+
+    const { data, error } = await this.supabaseService.client
+      .from('match')
+      .select('*')
+      .eq('player', session.session?.user.id)
+      .order('created_at', { ascending: false });
+
+    if (error) {
+      throw error;
+    }
+
+    return (data || []) as PushupRecord[];
   }
 }

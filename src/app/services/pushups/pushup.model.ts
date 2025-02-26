@@ -6,7 +6,8 @@ export interface PushupRecord {
   hasPentakill: boolean;
   pentakillNumber: number;
   hasSurrender: boolean;
-  surrenderingTeam?: 'blue' | 'red' | null;
   date: Date;
   pushupNumber?: number;
+  player?: string;
+  created_at?: string;
 }

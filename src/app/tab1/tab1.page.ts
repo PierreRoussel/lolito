@@ -3,6 +3,7 @@ import { PushupRecord } from '../services/pushups/pushup.model';
 import { PushupService } from '../services/pushups/pushup.service';
 import { UserInfo } from '../services/supabase/supabase.model';
 import { SupabaseService } from '../services/supabase/supabase.service';
+import { getPushUpNumber } from '../utils/pushup-calculator.utils';
 
 @Component({
   selector: 'app-tab1',
@@ -18,7 +19,6 @@ export class Tab1Page {
     pentakillNumber: 0,
     date: new Date(),
     hasSurrender: false,
-    surrenderingTeam: null,
   };
   records: PushupRecord[] = [];
   userInfo: UserInfo | null = null;
@@ -42,11 +42,13 @@ export class Tab1Page {
   }
 
   async saveMatch() {
-    if (this.newRecord.deaths >= 0) {
-      await this.matchService.addRecord({ ...this.newRecord });
-      this.resetForm();
-      await this.loadRecords();
-    }
+    const pushUpNumber = getPushUpNumber(this.newRecord);
+    console.log('🚀 ~ pushUpNumber:', pushUpNumber);
+    // if (this.newRecord.deaths >= 0) {
+    //   await this.matchService.addRecord({ ...this.newRecord });
+    //   this.resetForm();
+    //   await this.loadRecords();
+    // }
   }
 
   resetForm() {
@@ -57,14 +59,7 @@ export class Tab1Page {
       pentakillNumber: 0,
       hasPentakill: false,
       hasSurrender: false,
-      surrenderingTeam: null,
     };
-  }
-
-  onSurrenderChange() {
-    if (!this.newRecord.hasSurrender) {
-      this.newRecord.surrenderingTeam = null;
-    }
   }
 
   onPentakillChange() {
