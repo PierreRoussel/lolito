@@ -12,13 +12,13 @@
     <div
       [class]="item.isWin ? 'history-container__item win':'history-container__item loose'"
     >
-      <div class="history__item-avatar">
-        @if(item.isWin) {
-          W
-        } @else {L}
-      </div>
+      <div class="history__item-avatar">@if(item.isWin) { W } @else {L}</div>
       <div class="history-content">
-        <div class="history__item-deaths">{{ item.deaths }} morts</div>
+        <div class="history-date-death">
+          <div class="history__item-date">{{ item.date }}</div>
+
+          <div class="history__item-deaths">{{ item.deaths }} morts</div>
+        </div>
 
         <div class="history__item-pushups">{{item.pushupNumber}} pompes</div>
       </div>
