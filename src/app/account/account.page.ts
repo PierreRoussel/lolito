@@ -24,7 +24,6 @@ export class AccountPage {
 
   async ngOnInit() {
     const userInfo = await this.supabaseService.getUserInfo();
-    console.log('🚀 ~ userInfo:', userInfo);
     if (userInfo) {
       this.userInfo = userInfo;
     }

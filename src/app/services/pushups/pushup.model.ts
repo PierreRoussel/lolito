@@ -8,4 +8,5 @@ export interface PushupRecord {
   hasSurrender: boolean;
   surrenderingTeam?: 'blue' | 'red' | null;
   date: Date;
+  pushupNumber?: number;
 }
