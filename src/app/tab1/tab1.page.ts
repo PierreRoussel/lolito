@@ -46,7 +46,7 @@ export class Tab1Page {
 
   async saveMatch() {
     if (this.newRecord.deaths >= 0) {
-      const pushUpNumber = getPushUpNumber(this.newRecord);
+      const pushUpNumber = Math.ceil(getPushUpNumber(this.newRecord));
       this.newRecord.pushupNumber = pushUpNumber;
       this.matchService.addRecord({ ...this.newRecord });
       this.refreshTotalPushups();
