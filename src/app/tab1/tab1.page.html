@@ -5,6 +5,16 @@
     <div class="pattern"></div>
     <app-avatar />
     <span class="user-pseudo"> {{userInfo?.displayName}} </span>
+    <div class="user-pushups">
+      <span>Total pompé</span>
+      <b> {{pushupsStats?.totalPushups ?? 0}} </b>
+    </div>
+    @if(pushupsStats?.maxDailyPushups) {
+    <div class="user-maxdaily">
+      <span>le {{pushupsStats?.maxDailyPushups?.date}}</span>
+      <b>{{pushupsStats?.maxDailyPushups?.total ?? 0}}</b>
+    </div>
+    }
   </div>
   <ion-card>
     <ion-card-header>

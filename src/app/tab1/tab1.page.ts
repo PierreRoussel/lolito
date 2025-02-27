@@ -21,18 +21,27 @@ export class Tab1Page {
     hasSurrender: false,
   };
   userInfo: UserInfo | null = null;
+  pushups: number | null = null;
+  pushupsStats: {
+    totalPushups: number;
+    maxDailyPushups: { date: string; total: number } | null;
+  } | null = null;
 
   constructor(
     private matchService: PushupService,
-    private supabaseService: SupabaseService,
-  ) {
-  }
+    private supabaseService: SupabaseService
+  ) {}
 
   async ngOnInit() {
+    this.refreshTotalPushups();
     const userInfo = await this.supabaseService.getUserInfo();
     if (userInfo) {
       this.userInfo = userInfo;
     }
+  }
+
+  async refreshTotalPushups() {
+    this.pushupsStats = await this.matchService.getPushupStats();
   }
 
   async saveMatch() {
@@ -40,6 +49,7 @@ export class Tab1Page {
       const pushUpNumber = getPushUpNumber(this.newRecord);
       this.newRecord.pushupNumber = pushUpNumber;
       this.matchService.addRecord({ ...this.newRecord });
+      this.refreshTotalPushups();
     }
   }
 
