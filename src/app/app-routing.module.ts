@@ -23,7 +23,11 @@ const routes: Routes = [
       import('./register/register.module').then((m) => m.RegisterPageModule),
     canActivate: [NotAuthGuard],
 
+  },  {
+    path: 'statistics',
+    loadChildren: () => import('./statistics/statistics.module').then( m => m.StatisticsPageModule)
   },
+
 ];
 @NgModule({
   imports: [

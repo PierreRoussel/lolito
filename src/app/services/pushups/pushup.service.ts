@@ -89,6 +89,27 @@ export class PushupService {
     return total;
   }
 
+  async getDailyPushupTotals(): Promise<{ date: string; total: number }[]> {
+    const { data: session } = await this.supabaseService.getSession();
+    if (!session.session?.user) {
+      throw new Error('User not authenticated');
+    }
+
+    const { data, error } = await this.supabaseService.client
+      .from('match')
+      .select('pushupNumber, date')
+      .eq('player', session.session.user.id);
+
+    if (error) throw error;
+
+    if (!data || data.length === 0) return [];
+
+    const dailyTotals = this.groupByDate(data);
+    return Object.entries(dailyTotals)
+      .map(([date, total]) => ({ date, total }))
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }
+
   async getPushupStats(): Promise<{
     totalPushups: number;
     maxDailyPushups: { date: string; total: number } | null;

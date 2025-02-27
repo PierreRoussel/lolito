@@ -1,0 +1,37 @@
+<app-header title="Statistiques" />
+
+<ion-content>
+  <ion-card class="ion-padding">
+    <ion-card-header>
+      <ion-card-title>
+        <div>
+          <span>Total de pompes :</span>
+          <b> {{pushupsStats?.totalPushups ?? 0}} </b>
+        </div>
+        @if(pushupsStats?.maxDailyPushups) {
+        <div>
+          <span>Ton max : </span>
+          <b>{{pushupsStats?.maxDailyPushups?.total ?? 0}}</b>/j
+        </div>
+        }</ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <div class="chart-container">
+        <div
+          class="bar-container"
+          [style.height]="getBarHeight(day.total)"
+          *ngFor="let day of dailyPushups"
+        >
+          <div class="bar">
+            <span class="bar-value">{{ day.total }}</span>
+          </div>
+          <span class="bar-label">{{ day.date }}</span>
+        </div>
+        <div class="no-data" *ngIf="dailyPushups.length === 0">
+          <ion-label>Aucune données disponible</ion-label>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

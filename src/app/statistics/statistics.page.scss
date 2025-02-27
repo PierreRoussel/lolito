@@ -1,0 +1,82 @@
+ion-card {
+  border-radius: var(--border-radius-l);
+}
+
+.chart-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  height: 73vh;
+  align-items: flex-end;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-top: var(--font-size-h1);
+  padding-left: 8px;
+  padding-bottom: 65px;
+  gap: var(--gap-s);
+}
+
+.bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  margin: 0;
+  width: var(--gap-xxl);
+  position: relative;
+}
+
+.bar {
+  margin-top: auto;
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  background: linear-gradient(to top, var(--surface-container), var(--primary-container));
+  transition:
+    height 0.5s ease-out,
+    transform 0.2s ease;
+  position: relative;
+  animation: grow 0.5s ease-out forwards;
+  transform-origin: bottom;
+
+  .bar-value {
+    position: absolute;
+    top: -24px;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@keyframes grow {
+  from {
+    height: 0;
+  }
+  to {
+    height: inherit;
+  }
+}
+
+.bar-label {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 8px;
+  word-wrap: break-word;
+  transform: rotate(-55deg);
+  max-width: 70px;
+  position: absolute;
+  bottom: -42px;
+  z-index: 10;
+}
+
+.no-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+ion-card-title {
+  display: flex;
+  font-size: var(--font-size-h4);
+  gap: var(--gap-xl);
+  color: var(--secondary);
+}
