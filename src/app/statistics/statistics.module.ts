@@ -8,6 +8,7 @@ import { StatisticsPageRoutingModule } from './statistics-routing.module';
 
 import { StatisticsPage } from './statistics.page';
 import { HeaderComponent } from "../components/shared/header/header.component";
+import { FriendRedirectionComponent } from "../components/shared/friend-redirection/friend-redirection.component";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderComponent } from "../components/shared/header/header.component";
     FormsModule,
     IonicModule,
     StatisticsPageRoutingModule,
-    HeaderComponent
+    HeaderComponent,
+    FriendRedirectionComponent
 ],
   declarations: [StatisticsPage]
 })

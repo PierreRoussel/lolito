@@ -31,7 +31,11 @@ const routes: Routes = [
   {
     path: 'leaderboard',
     loadChildren: () => import('./leaderboard/leaderboard.module').then( m => m.LeaderboardPageModule)
+  },  {
+    path: 'friends',
+    loadChildren: () => import('./friends/friends.module').then( m => m.FriendsPageModule)
   },
+
 ];
 @NgModule({
   imports: [

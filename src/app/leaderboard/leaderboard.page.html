@@ -32,16 +32,16 @@
   <ion-toolbar>
     <ion-tabs>
       <ion-tab-bar slot="bottom">
-        <ion-back-button text="Previous" icon="caret-back"></ion-back-button>
-
-        <ion-tab-button (click)="goBack()">
-          <ion-icon name="chevron-back-outline"></ion-icon>
+        <ion-button
+          style="margin-right: var(--gap-l)"
+          shape="round"
+          (click)="goBack()"
+          color="primary"
+        >
+          <ion-icon slot="start" name="bar-chart-outline"></ion-icon>
           <ion-label>Mes statistiques</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="friends" routerLink="/friends">
-          <ion-icon name="people-outline"></ion-icon>
-          <ion-label>Amis</ion-label>
-        </ion-tab-button>
+        </ion-button>
+        <app-friend-redirection />
       </ion-tab-bar>
     </ion-tabs>
   </ion-toolbar>

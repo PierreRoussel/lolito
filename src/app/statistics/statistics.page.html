@@ -39,14 +39,16 @@
   <ion-toolbar>
     <ion-tabs>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="leaderboard" routerLink="/tabs/statistics/leaderboard">
-          <ion-icon name="earth-outline"></ion-icon>
+        <ion-button
+          style="margin-right: var(--gap-l)"
+          shape="round"
+          color="primary"
+          routerLink="/tabs/statistics/leaderboard"
+        >
+          <ion-icon slot="start" name="earth-outline"></ion-icon>
           <ion-label>Classement</ion-label>
-        </ion-tab-button>
-        <ion-tab-button tab="friends" routerLink="/friends">
-          <ion-icon name="people-outline"></ion-icon>
-          <ion-label>Amis</ion-label>
-        </ion-tab-button>
+        </ion-button>
+        <app-friend-redirection />
       </ion-tab-bar>
     </ion-tabs>
   </ion-toolbar>

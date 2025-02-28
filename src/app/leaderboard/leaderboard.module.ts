@@ -8,6 +8,7 @@ import { LeaderboardPageRoutingModule } from './leaderboard-routing.module';
 
 import { LeaderboardPage } from './leaderboard.page';
 import { HeaderComponent } from "../components/shared/header/header.component";
+import { FriendRedirectionComponent } from "../components/shared/friend-redirection/friend-redirection.component";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HeaderComponent } from "../components/shared/header/header.component";
     FormsModule,
     IonicModule,
     LeaderboardPageRoutingModule,
-    HeaderComponent
+    HeaderComponent,
+    FriendRedirectionComponent
 ],
   declarations: [LeaderboardPage]
 })

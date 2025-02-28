@@ -1,7 +1,7 @@
 {
   "name": "PushyLolito",
   "short_name": "PushyLolito",
-  "theme_color": "#adc6ff",
+  "theme_color": "#11131a",
   "background_color": "#11131a",
   "display": "standalone",
   "scope": "./",
