@@ -31,13 +31,14 @@
         <ion-input type="number" [(ngModel)]="newRecord.deaths"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <ion-label>Résultats</ion-label>
-        <ion-select [(ngModel)]="newRecord.isWin">
-          <ion-select-option [value]="true">Gagné</ion-select-option>
-          <ion-select-option [value]="false">Perdu</ion-select-option>
-        </ion-select>
-      </ion-item>
+      <ion-segment [(ngModel)]="newRecord.isWin">
+        <ion-segment-button [value]="true">
+          <ion-label>Gagné</ion-label>
+        </ion-segment-button>
+        <ion-segment-button [value]="false">
+          <ion-label>Perdu</ion-label>
+        </ion-segment-button>
+      </ion-segment>
 
       <ion-item>
         <ion-label>Pentakill</ion-label>
