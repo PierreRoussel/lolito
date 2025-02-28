@@ -26,8 +26,22 @@ export class StatisticsPage implements OnInit {
   ) {}
 
   async ngOnInit() {
+    this.initData();
+  }
+
+  async initData() {
     await this.loadDailyPushups();
     this.pushupsStats = await this.matchService.getPushupStats();
+  }
+
+  handleRefresh(event: CustomEvent) {
+    console.log("??");
+
+    setTimeout(() => {
+      // Any calls to load data go here
+      this.initData();
+      (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
   }
 
   async loadDailyPushups() {
