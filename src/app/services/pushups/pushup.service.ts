@@ -160,4 +160,35 @@ export class PushupService {
     });
     return grouped;
   }
+
+  async getPushupLeaderboard(): Promise<
+    { display_name: string; total_pushups: number }[]
+  > {
+    const { data: session } = await this.supabaseService.getSession();
+    if (!session.session?.user) {
+      throw new Error('User not authenticated');
+    }
+
+    const { data, error } = await this.supabaseService.client
+      .from('pushup_totals')
+      .select('total_pushups, profiles(display_name, id)')
+      .order('total_pushups', { ascending: false })
+      .limit(10);
+    if (error) throw error;
+
+    return (
+      (data as unknown as {
+        total_pushups: any;
+        profiles: {
+          display_name: any;
+        };
+      }[]) || []
+    )
+      .filter((dd) => dd.profiles?.display_name !== 'Testopepito')
+      .map((entry: any) => ({
+        display_name: entry.profiles?.display_name || 'Unknown',
+        total_pushups: entry.total_pushups,
+        ...(session.session.user.id === entry.profiles.id && { isUser: true }),
+      }));
+  }
 }

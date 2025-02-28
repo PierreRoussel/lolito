@@ -1,0 +1,37 @@
+ion-item {
+  &.current-user {
+    --background: var(--secondary-container); // Highlight current user with a blue tint
+    --border-color: var(--primary-container);
+    --border-width: 0;
+    --border-style: solid;
+  }
+
+  &.animate {
+    animation: slideIn 0.5s ease-out forwards;
+  }
+
+  ion-icon {
+    margin-right: 10px;
+    &.gold {
+      color: #f7dc48; // Gold medal
+    }
+    &.silver {
+      color: #c0c0c0; // Silver medal
+    }
+    &.bronze {
+      color: #cd7f32; // Bronze medal
+    }
+  }
+}
+
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}

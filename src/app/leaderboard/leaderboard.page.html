@@ -1,0 +1,48 @@
+<app-header title="Leaderboard" />
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Meilleurs pompeurs</ion-label>
+    </ion-list-header>
+    <ion-item
+      *ngFor="let player of leaderboard; let i = index"
+      [class.current-user]="player.isUser"
+      [class.animate]="animate"
+      [style.animation-delay]="i * 0.1 + 's'"
+    >
+      <ion-icon
+        [name]="getMedalIcon(i)"
+        slot="start"
+        [class.gold]="i === 0"
+        [class.silver]="i === 1"
+        [class.bronze]="i === 2"
+      ></ion-icon>
+      <ion-label>
+        <h2>#{{ i + 1 }} {{ player.display_name }}</h2>
+        <p>{{ player.total_pushups }} Pompes</p>
+      </ion-label>
+    </ion-item>
+    <ion-item *ngIf="leaderboard.length === 0">
+      <ion-label>No push-up data available</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer class="ion-no-border ion-text-center ion-padding">
+  <ion-toolbar>
+    <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-back-button text="Previous" icon="caret-back"></ion-back-button>
+
+        <ion-tab-button (click)="goBack()">
+          <ion-icon name="chevron-back-outline"></ion-icon>
+          <ion-label>Mes statistiques</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="friends" routerLink="/friends">
+          <ion-icon name="people-outline"></ion-icon>
+          <ion-label>Amis</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-toolbar>
+</ion-footer>
