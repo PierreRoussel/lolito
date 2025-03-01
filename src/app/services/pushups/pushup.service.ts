@@ -7,6 +7,7 @@ import { ToastController } from '@ionic/angular';
   providedIn: 'root',
 })
 export class PushupService {
+  private readonly matchTableName = 'match';
   constructor(
     private supabaseService: SupabaseService,
     private toastController: ToastController
@@ -34,7 +35,7 @@ export class PushupService {
     };
 
     const { data, error } = await this.supabaseService.client
-      .from('match')
+      .from(this.matchTableName)
       .insert(newRecord)
       .select()
       .single();
@@ -50,6 +51,35 @@ export class PushupService {
     return data as PushupRecord;
   }
 
+  async updateRecord(record: PushupRecord): Promise<PushupRecord> {
+    const { data: session } = await this.supabaseService.getSession();
+    if (!session.session?.user || !record.id) {
+      throw new Error('User not authenticated or invalid record');
+    }
+
+    const { data, error } = await this.supabaseService.client
+      .from(this.matchTableName)
+      .update({
+        deaths: record.deaths,
+        pushupNumber: record.pushupNumber || 0,
+        isWin: record.isWin,
+        hasPentakill: record.hasPentakill,
+        hasSurrender: record.hasSurrender,
+      })
+      .eq('id', record.id)
+      .eq('player', session.session.user.id)
+      .select()
+      .single();
+
+    if (error) {
+      await this.presentToast('Modification ratée: ' + error.message, 'danger');
+      throw error;
+    }
+
+    await this.presentToast('Match modifié !', 'success');
+    return data as PushupRecord;
+  }
+
   async getRecords(): Promise<PushupRecord[]> {
     const { data: session } = await this.supabaseService.getSession();
     if (!session.session?.user) {
@@ -57,7 +87,7 @@ export class PushupService {
     }
 
     const { data, error } = await this.supabaseService.client
-      .from('match')
+      .from(this.matchTableName)
       .select('*')
       .eq('player', session.session?.user.id)
       .order('created_at', { ascending: false });
@@ -76,7 +106,7 @@ export class PushupService {
     }
 
     const { data, error } = await this.supabaseService.client
-      .from('match')
+      .from(this.matchTableName)
       .select('pushupNumber')
       .eq('player', session.session.user.id);
 
@@ -96,7 +126,7 @@ export class PushupService {
     }
 
     const { data, error } = await this.supabaseService.client
-      .from('match')
+      .from(this.matchTableName)
       .select('pushupNumber, date')
       .eq('player', session.session.user.id);
 
@@ -120,7 +150,7 @@ export class PushupService {
     }
 
     const { data, error } = await this.supabaseService.client
-      .from('match')
+      .from(this.matchTableName)
       .select('pushupNumber, date')
       .eq('player', session.session.user.id);
 

@@ -8,11 +8,14 @@
   </ion-header>
 
   <div>
-    <div *ngFor="let group of groupedRecords" class="history-container">
+    <div
+      *ngFor="let group of groupedRecords; let groupIndex = index"
+      class="history-container"
+    >
       <ion-item-divider>
         <ion-label>{{ group.date }}</ion-label>
       </ion-item-divider>
-      @for (item of group.matches; track item.id) {
+      @for (item of group.matches; track item.id; let i = $index) {
       <div
         [class]="item.isWin ? 'history-container__item win':'history-container__item loose'"
         [class.new-item]="isNewItem(item.id)"
@@ -25,8 +28,19 @@
             <div class="history__item-deaths">{{ item.deaths }} morts</div>
           </div>
 
-          <div class="history__item-pushups"><b>{{item.pushupNumber}}</b> pompes</div>
+          <div class="history__item-pushups">
+            <b>{{item.pushupNumber}}</b> pompes
+          </div>
         </div>
+        <ion-button
+          slot="end"
+          color="dark"
+          shape="round"
+          *ngIf="groupIndex === 0 && i === 0"
+          (click)="editLastMatch(item.id||'')"
+        >
+          <ion-icon slot="icon-only" name="pencil-outline"></ion-icon>
+        </ion-button>
       </div>
       } @empty {
       <div>Calmo pepito, pompe d'abord.</div>

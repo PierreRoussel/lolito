@@ -9,6 +9,7 @@ import { ThemeSwitcherComponent } from '../components/shared/theme-switcher/them
 import { HeaderComponent } from '../components/shared/header/header.component';
 import { HorizontalListCardComponent } from '../components/shared/horizontal-list-card/horizontal-list-card.component';
 import { AvatarComponent } from "../components/shared/ui/avatar/avatar.component";
+import { CreateEditMatchRecordComponent } from "../components/create-edit-match-record/create-edit-match-record.component";
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { AvatarComponent } from "../components/shared/ui/avatar/avatar.component
     ThemeSwitcherComponent,
     HeaderComponent,
     HorizontalListCardComponent,
-    AvatarComponent
+    AvatarComponent,
+    CreateEditMatchRecordComponent
 ],
   declarations: [Tab1Page],
 })

@@ -17,7 +17,7 @@ export class AppComponent {
   }
 
   async initializeApp() {
-    // await this.loadingService.showLoading({ duration: 4000 });
+    // await this.loadingService.showLoading({ duration: 2000 });
 
     // this.platform.ready().then(async () => {
     //   // Put your initialization logic here

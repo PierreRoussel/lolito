@@ -1,0 +1,53 @@
+<ion-card>
+  @if(!match) {
+  <ion-card-header>
+    <ion-card-title>
+      @if (!newRecord.pushupNumber){ Nouveau match }@else { Tu dois pomper
+      }</ion-card-title
+    >
+  </ion-card-header>
+  } @if (!newRecord.pushupNumber) {
+  <ion-card-content [ngClass]="'content-container'">
+    <ion-item>
+      <ion-label position="floating">Nombre de morts</ion-label>
+      <ion-input type="number" [(ngModel)]="newRecord.deaths"></ion-input>
+    </ion-item>
+
+    <ion-segment [(ngModel)]="newRecord.isWin">
+      <ion-segment-button [value]="true">
+        <ion-label>Gagné</ion-label>
+      </ion-segment-button>
+      <ion-segment-button [value]="false">
+        <ion-label>Perdu</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-item>
+      <ion-label>Pentakill</ion-label>
+      <ion-toggle [(ngModel)]="newRecord.hasPentakill"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="newRecord.hasPentakill">
+      <ion-label position="floating">Nombre de Pentakills</ion-label>
+      <ion-input
+        type="number"
+        [(ngModel)]="newRecord.pentakillNumber"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Abandon</ion-label>
+      <ion-toggle [(ngModel)]="newRecord.hasSurrender"></ion-toggle>
+    </ion-item>
+
+    <ion-button class="ion-padding" expand="block" (click)="saveMatch()"
+      >Enregistrer</ion-button
+    >
+  </ion-card-content>
+  } @else {
+  <ion-card-content [ngClass]="'content-container'">
+    <h2>{{ newRecord.pushupNumber }}</h2>
+  </ion-card-content>
+  <ion-button class="ion-padding" expand="block" (click)="resetForm()"
+    >Valider</ion-button
+  >}
+</ion-card>

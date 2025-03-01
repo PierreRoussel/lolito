@@ -3,8 +3,6 @@ import { PushupRecord } from '../services/pushups/pushup.model';
 import { PushupService } from '../services/pushups/pushup.service';
 import { UserInfo } from '../services/supabase/supabase.model';
 import { SupabaseService } from '../services/supabase/supabase.service';
-import { getPushUpNumber } from '../utils/pushup-calculator.utils';
-
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
@@ -12,16 +10,8 @@ import { getPushUpNumber } from '../utils/pushup-calculator.utils';
   standalone: false,
 })
 export class Tab1Page {
-  newRecord: PushupRecord = {
-    deaths: 0,
-    isWin: false,
-    hasPentakill: false,
-    pentakillNumber: 0,
-    date: new Date(),
-    hasSurrender: false,
-  };
   userInfo: UserInfo | null = null;
-  pushups: number | null = null;
+
   pushupsStats: {
     totalPushups: number;
     maxDailyPushups: { date: string; total: number } | null;
@@ -40,33 +30,12 @@ export class Tab1Page {
     }
   }
 
+  async createMatchRecord(match: PushupRecord){
+    this.matchService.addRecord({ ...match });
+  }
+
   async refreshTotalPushups() {
     this.pushupsStats = await this.matchService.getPushupStats();
   }
 
-  async saveMatch() {
-    if (this.newRecord.deaths >= 0) {
-      const pushUpNumber = Math.ceil(getPushUpNumber(this.newRecord));
-      this.newRecord.pushupNumber = pushUpNumber;
-      this.matchService.addRecord({ ...this.newRecord });
-      this.refreshTotalPushups();
-    }
-  }
-
-  resetForm() {
-    this.newRecord = {
-      deaths: 0,
-      date: new Date(),
-      isWin: false,
-      pentakillNumber: 0,
-      hasPentakill: false,
-      hasSurrender: false,
-    };
-  }
-
-  onPentakillChange() {
-    if (!this.newRecord.hasPentakill) {
-      this.newRecord.pentakillNumber = 0;
-    }
-  }
 }

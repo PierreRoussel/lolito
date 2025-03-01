@@ -1,0 +1,11 @@
+<!-- src/app/history/edit-match-modal/edit-match-modal.component.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modifier le match</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">Fermer</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<app-create-edit-match-record [match]="match" (formSubmit)="save($event)">

@@ -1,0 +1,13 @@
+:host {
+  .content-container {
+    gap: var(--gap-s);
+    display: flex;
+    flex-direction: column;
+  }
+
+  ion-segment-button {
+    &:last-child {
+      --color-checked: var(--ion-color-danger);
+    }
+  }
+}

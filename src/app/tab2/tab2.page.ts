@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PushupService } from '../services/pushups/pushup.service';
 import { PushupRecord } from '../services/pushups/pushup.model';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { EditMatchModalComponent } from './edit-match-modal/edit-match-modal.component';
 interface GroupedMatches {
   date: string;
   matches: PushupRecord[];
@@ -17,11 +18,40 @@ export class Tab2Page implements OnInit {
   newItemIds: string[] = [];
   constructor(
     private matchService: PushupService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
     this.loadRecords();
+  }
+
+  async editLastMatch(recordId: string) {
+    if (
+      this.groupedRecords.length === 0 ||
+      this.groupedRecords[0].matches.length === 0
+    ) {
+      this.presentToast('No matches to edit', 'warning');
+      return;
+    }
+
+    const lastMatch = this.groupedRecords[0].matches[0]; // Most recent match
+    const modal = await this.modalController.create({
+      component: EditMatchModalComponent,
+      componentProps: { match: { ...lastMatch } }, // Pass a copy to avoid direct mutation
+    });
+
+    modal.onDidDismiss().then(async (result) => {
+      if (result.data) {
+        await this.matchService
+          .updateRecord({ ...result.data, id: recordId })
+          .then(() => {
+            this.loadRecords();
+          });
+      }
+    });
+
+    await modal.present();
   }
 
   async loadRecords() {
