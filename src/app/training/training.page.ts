@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PushupService } from '../services/pushups/pushup.service';
 import { SupabaseService } from '../services/supabase/supabase.service';
 import { ToastController } from '@ionic/angular';
 import { program } from 'src/assets/program';
+import { Router } from '@angular/router';
 
 export interface TrainingLevel {
   level: number;
@@ -43,10 +43,9 @@ export class TrainingPage implements OnInit {
   currentSet: number = 0;
   isResting: boolean = false;
   restTimeRemaining: number = 0;
-  private restTimer: any;
 
   constructor(
-    private matchService: PushupService,
+    private router: Router,
     private supabaseService: SupabaseService,
     private toastController: ToastController
   ) {}
@@ -61,17 +60,6 @@ export class TrainingPage implements OnInit {
       if (progress) {
         this.currentLevel = progress.level;
         this.selectedDifficulty = progress.difficulty;
-        switch (this.selectedDifficulty) {
-          case 'beginner':
-            this.selectedDifficultyNumber = 1;
-            break;
-          case 'intermediate':
-            this.selectedDifficultyNumber = 2;
-            break;
-          case 'advanced':
-            this.selectedDifficultyNumber = 3;
-            break;
-        }
       }
     } catch (error) {
       this.presentToast(
@@ -81,69 +69,13 @@ export class TrainingPage implements OnInit {
     }
   }
 
-  startTraining(level: TrainingLevel) {
-    if (level.level !== this.currentLevel) {
-      this.presentToast('Please complete your current level first!', 'warning');
-      return;
-    }
-    this.currentSet = 0; // Reset sets
-    this.isResting = false;
-    this.restTimeRemaining = 0;
-    clearInterval(this.restTimer); // Clear any existing timer
-  }
-
-  completeSet(level: TrainingLevel) {
-    const training = level.difficulties[this.selectedDifficulty];
-    this.currentSet++;
-
-    if (this.currentSet < training.sets) {
-      // Start rest period
-      this.isResting = true;
-      this.restTimeRemaining = training.rest_seconds;
-      this.restTimer = setInterval(() => {
-        this.restTimeRemaining--;
-        if (this.restTimeRemaining <= 0) {
-          clearInterval(this.restTimer);
-          this.isResting = false;
-          this.presentToast(`Ready for Set ${this.currentSet + 1}!`, 'primary');
-        }
-      }, 1000);
-    } else {
-      // All sets completed, log the session
-      this.logTrainingSession(level);
-    }
-  }
-
-  async logTrainingSession(level: TrainingLevel) {
-    const training = level.difficulties[this.selectedDifficulty];
-    const totalPushups = training.sets * training.reps;
-
-    try {
-      await this.matchService.addExerciseRecord(totalPushups);
-
-      if (this.currentLevel < 10) {
-        this.currentLevel++;
-        await this.supabaseService.updateTrainingProgress(
-          this.currentLevel,
-          this.selectedDifficulty
-        );
-        this.presentToast(
-          `Completed Level ${level.level} ${this.selectedDifficulty}! Progressed to Level ${this.currentLevel}.`,
-          'success'
-        );
-      } else {
-        this.presentToast(
-          'Congratulations! You’ve completed the Hundred Push-ups Program!',
-          'success'
-        );
-      }
-      this.currentSet = 0; // Reset for next training
-    } catch (error) {
-      this.presentToast(
-        'Error logging training session: ' + (error as Error).message,
-        'danger'
-      );
-    }
+  startTrainingSession() {
+    this.router.navigate(['/training-session'], {
+      state: {
+        level: this.trainingProgram[this.currentLevel],
+        difficulty: this.selectedDifficulty,
+      },
+    });
   }
 
   async presentToast(message: string, color: string = 'dark') {

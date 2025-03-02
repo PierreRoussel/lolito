@@ -1,13 +1,22 @@
 <ion-header>
   <ion-toolbar>
-    <ion-back-button slot="start" />
+    <ion-button
+      style="margin-right: var(--gap-l)"
+      shape="round"
+      slot="start"
+      fill="clear"
+      color="secondary"
+      routerLink="/tabs"
+    >
+      <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+    </ion-button>
     <ion-title>S'entraîner</ion-title>
     <app-theme-switcher slot="end" />
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card style="margin-top:var(--gap-l)">
+  <ion-card style="margin-top: var(--gap-l)">
     <ion-card-header>
       <ion-card-title>Mon programme</ion-card-title>
     </ion-card-header>
@@ -62,7 +71,9 @@
 
 <ion-footer class="ion-padding">
   <ion-col>
-    <ion-button expand="block" size="large">Let's go</ion-button>
+    <ion-button (click)="startTrainingSession()" expand="block" size="large"
+      >Let's go</ion-button
+    >
     <ion-button
       color="secondary"
       style="margin-top: var(--gap-l)"

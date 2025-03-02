@@ -1,0 +1,52 @@
+<!-- src/app/training-session/training-session.page.html -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/training"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Training Session - Level {{ level.level }}</ion-title>
+    <app-theme-switcher slot="end" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{ level.name }} ({{ difficulty }})</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label>
+        <h2>Sets: {{ training.sets }}</h2>
+        <p>Reps per Set: {{ training.reps }}</p>
+        <p>Rest Between Sets: {{ training.rest_seconds }} seconds</p>
+        <p>Total Push-ups: {{ training.sets * training.reps }}</p>
+        <p *ngIf="isTrainingStarted">
+          Completed Sets: {{ currentSet }} / {{ training.sets }}
+        </p>
+      </ion-label>
+      <ion-button expand="block" (click)="completeSet()" [disabled]="isResting">
+        {{ isTrainingStarted ? 'Complete Set' : 'Start Training' }}
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+  <ion-progress-bar
+    [value]="progress"
+    color="primary"
+    *ngIf="isTrainingStarted"
+  ></ion-progress-bar>
+  <div class="timer-container" *ngIf="isResting">
+    <svg class="timer-circle" width="100" height="100">
+      <circle class="timer-bg" cx="50" cy="50" r="45" />
+      <circle
+        class="timer-progress"
+        cx="50"
+        cy="50"
+        r="45"
+        [style.strokeDashoffset]="getStrokeDashoffset()"
+      />
+      <text x="50" y="55" text-anchor="middle" fill="#ffffff">
+        {{ restTimeRemaining }}
+      </text>
+    </svg>
+  </div>
+</ion-content>

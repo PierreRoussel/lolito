@@ -43,6 +43,10 @@ const routes: Routes = [
     path: 'training',
     loadChildren: () => import('./training/training.module').then( m => m.TrainingPageModule)
   },
+  {
+    path: 'training-session',
+    loadChildren: () => import('./training-session/training-session.module').then( m => m.TrainingSessionPageModule)
+  },
 
 ];
 @NgModule({
