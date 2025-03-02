@@ -19,12 +19,12 @@
   <app-create-edit-match-record (formSubmit)="createMatchRecord($event)" />
   <ion-row class="ion-padding">
     <ion-col>
-      <ion-button fill="outline" color="tertiary" shape="round" expand="block"
+      <ion-button routerLink="/exercise" fill="outline" color="tertiary" shape="round" expand="block"
         ><ion-icon slot="start" name="flash-outline"></ion-icon> S'exercer
       </ion-button>
     </ion-col>
     <ion-col>
-      <ion-button fill="outline" color="secondary" shape="round" expand="block">
+      <ion-button routerLink="/training" fill="outline" color="secondary" shape="round" expand="block">
         <ion-icon slot="start" name="rocket-outline"></ion-icon> S'entraîner
       </ion-button>
     </ion-col>

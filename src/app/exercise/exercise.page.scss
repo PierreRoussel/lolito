@@ -1,0 +1,15 @@
+ion-grid,
+ion-row {
+  height: 100%;
+  margin: auto;
+}
+ion-backdrop {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease-in-out;
+
+  &.visible {
+    background-color: var(--surface);
+    opacity: 0.5;
+  }
+}

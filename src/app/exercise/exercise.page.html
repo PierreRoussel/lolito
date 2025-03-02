@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-back-button slot="start" />
+    <ion-title>S'exercer</ion-title>
+    <app-theme-switcher slot="end" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-backdrop
+  [ngClass]="{'visible':isLoading}"
+  [visible]="isLoading"
+></ion-backdrop>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-align-items-center ion-justify-content-center">
+      <ion-col>
+        <app-pushup-counter (change)="setCount($event)" />
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar class="ion-padding">
+    <ion-button
+      (click)="saveExercisePushupNumberAndRedirect()"
+      expand="block"
+      color="primary"
+      [disabled]="isLoading"
+    >
+      @if(isLoading){ <ion-spinner name="bubbles"></ion-spinner>} Compléter
+    </ion-button>
+    <ion-button
+      [disabled]="isLoading"
+      shape="round"
+      slot="end"
+      color="tertiary"
+    >
+      <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

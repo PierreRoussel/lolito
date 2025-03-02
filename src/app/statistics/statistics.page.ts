@@ -35,8 +35,6 @@ export class StatisticsPage implements OnInit {
   }
 
   handleRefresh(event: CustomEvent) {
-    console.log("??");
-
     setTimeout(() => {
       // Any calls to load data go here
       this.initData();

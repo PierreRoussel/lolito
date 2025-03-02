@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-back-button slot="start" />
+    <ion-title>S'entraîner</ion-title>
+    <app-theme-switcher slot="end" />
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card style="margin-top:var(--gap-l)">
+    <ion-card-header>
+      <ion-card-title>Mon programme</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <h3>Progression: {{selectedDifficulty | appDiffuclty}}</h3>
+      <ion-item lines="none">
+        <ion-range
+          [ticks]="true"
+          [snaps]="true"
+          [value]="selectedDifficultyNumber"
+          [min]="0"
+          [max]="3"
+        ></ion-range>
+      </ion-item>
+      <h3>Niveau <b>{{currentLevel}}</b></h3>
+      <ion-item lines="none">
+        <ion-radio-group [value]="currentLevel">
+          <ion-radio [value]="1"></ion-radio>
+          <ion-radio [value]="2"></ion-radio>
+          <ion-radio [value]="3"></ion-radio>
+          <ion-radio [value]="4"></ion-radio>
+          <ion-radio [value]="5"></ion-radio>
+          <ion-radio [value]="6"></ion-radio>
+          <ion-radio [value]="7"></ion-radio>
+          <ion-radio [value]="8"></ion-radio>
+          <ion-radio [value]="9"></ion-radio>
+          <ion-radio [value]="10"></ion-radio>
+        </ion-radio-group>
+      </ion-item>
+      <div class="divider"></div>
+      <ion-item-divider>
+        <ion-label> Séance du jour </ion-label>
+        <ion-item>
+          <ion-row class="ion-align-items-center">
+            {{
+            trainingProgram[currentLevel].difficulties[selectedDifficulty].sets
+            }} x {{
+            trainingProgram[currentLevel].difficulties[selectedDifficulty].reps
+            }} - {{
+            trainingProgram[currentLevel].difficulties[selectedDifficulty].rest_seconds
+            }}s - Total: {{
+            trainingProgram[currentLevel].difficulties[selectedDifficulty].sets
+            *
+            trainingProgram[currentLevel].difficulties[selectedDifficulty].reps
+            }}
+          </ion-row>
+        </ion-item>
+      </ion-item-divider>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer class="ion-padding">
+  <ion-col>
+    <ion-button expand="block" size="large">Let's go</ion-button>
+    <ion-button
+      color="secondary"
+      style="margin-top: var(--gap-l)"
+      expand="block"
+      >Choisir LVL</ion-button
+    >
+  </ion-col>
+</ion-footer>

@@ -1,0 +1,27 @@
+:host {
+  ion-radio-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  ion-range {
+    width: 100%;
+    pointer-events: none;
+
+    &.range-item-start-adjustment {
+      padding-inline-start: 0;
+    }
+  }
+
+  h3 {
+    margin-top: var(--gap);
+  }
+
+  .divider {
+    margin-block: var(--gap-xl);
+    height: 1px;
+    background-color: var(--surface-dim);
+  }
+}

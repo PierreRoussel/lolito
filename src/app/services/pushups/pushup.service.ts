@@ -51,6 +51,41 @@ export class PushupService {
     return data as PushupRecord;
   }
 
+  async addExerciseRecord(pushupNumber: number): Promise<PushupRecord> {
+    const { data: session } = await this.supabaseService.getSession();
+    if (!session?.session) {
+      throw new Error('User not authenticated');
+    }
+
+    const newRecord = {
+      deaths: 0,
+      isWin: false,
+      hasPentakill: false,
+      pentakillNumber: 0,
+      date: new Date(),
+      hasSurrender: false,
+      pushupNumber: pushupNumber || 0,
+      player: session.session.user.id,
+      is_game: false,
+    };
+
+    const { data, error } = await this.supabaseService.client
+      .from(this.matchTableName)
+      .insert(newRecord)
+      .select()
+      .single();
+
+    if (error) {
+      await this.presentToast(
+        "Erreur à l'enregistrement: " + error.message,
+        'danger'
+      );
+      throw error;
+    }
+    await this.presentToast('Exercice enregistré', 'success');
+    return data as PushupRecord;
+  }
+
   async updateRecord(record: PushupRecord): Promise<PushupRecord> {
     const { data: session } = await this.supabaseService.getSession();
     if (!session.session?.user || !record.id) {
@@ -90,7 +125,9 @@ export class PushupService {
       .from(this.matchTableName)
       .select('*')
       .eq('player', session.session?.user.id)
-      .order('created_at', { ascending: false });
+      .eq('is_game', true)
+      .order('created_at', { ascending: false })
+      .limit(20);
 
     if (error) {
       throw error;
@@ -127,7 +164,7 @@ export class PushupService {
 
     const { data, error } = await this.supabaseService.client
       .from(this.matchTableName)
-      .select('pushupNumber, date')
+      .select('pushupNumber, date, created_at')
       .eq('player', session.session.user.id);
 
     if (error) throw error;
@@ -137,7 +174,16 @@ export class PushupService {
     const dailyTotals = this.groupByDate(data);
     return Object.entries(dailyTotals)
       .map(([date, total]) => ({ date, total }))
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+      .sort((a, b) => {
+        const aDate = this.getDateFromString(a.date);
+        const bDate = this.getDateFromString(b.date);
+        return aDate.getTime() - bDate.getTime();
+      });
+  }
+
+  private getDateFromString(date: string) {
+    const dateParts = date.split('/');
+    return new Date(+dateParts[2], +dateParts[1] - 1, +dateParts[0]);
   }
 
   async getPushupStats(): Promise<{

@@ -1,7 +1,6 @@
 import { PushupRecord } from '../services/pushups/pushup.model';
 
 export function getPushUpNumber(matchRecord: PushupRecord): number {
-  console.log('matchRecord', matchRecord);
   let totalNumber = matchRecord.deaths;
   if (!matchRecord.isWin) {
     totalNumber = totalNumber * (matchRecord.hasSurrender ? 3 : 2);

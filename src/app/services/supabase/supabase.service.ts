@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { UserInfo } from './supabase.model';
+import { TrainingProgress } from 'src/app/training/training.page';
 
 const SUPABASE_URL = 'https://phprmpigdtmkrmkaqeup.supabase.co';
 const SUPABASE_KEY =
@@ -32,7 +33,7 @@ export class SupabaseService {
     const { data, error } = await this.supabase.auth.signUp({
       email,
       password,
-      options
+      options,
     });
     return { data, error };
   }
@@ -87,5 +88,36 @@ export class SupabaseService {
       id: session.user.id,
       lastSignIn: session.user.last_sign_in_at,
     } as UserInfo;
+  }
+
+  async getTrainingProgress(): Promise<TrainingProgress | null> {
+    const { data: session } = await this.getSession();
+    if (!session.session?.user) throw new Error('User not authenticated');
+
+    const { data, error } = await this.supabase
+      .from('training_progress')
+      .select('*')
+      .eq('user_id', session.session.user.id)
+      .single();
+
+    if (error && error.code !== 'PGRST116') throw error; // Ignore "no rows" error
+    return data || null;
+  }
+
+  async updateTrainingProgress(
+    level: number,
+    difficulty: 'beginner' | 'intermediate' | 'advanced'
+  ): Promise<void> {
+    const { data: session } = await this.getSession();
+    if (!session.session?.user) throw new Error('User not authenticated');
+
+    const { error } = await this.supabase.from('training_progress').upsert({
+      user_id: session.session.user.id,
+      level,
+      difficulty,
+      completed_at: new Date().toISOString(),
+    });
+
+    if (error) throw error;
   }
 }
