@@ -1,24 +1,32 @@
-
 .timer-container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  position: relative;
+  width: 90%;
+
+  &::before {
+    position: absolute;
+    content: "";
+    z-index: -1;
+    inset: 26px;
+    border-radius: 50%;
+  }
 }
 
 .timer-circle {
-  position: relative;
+  width: 110%;
+  aspect-ratio: 1 / 1;
 
   .timer-bg {
     fill: none;
-    stroke: rgba(255, 255, 255, 0.2);
-    stroke-width: 5;
+    stroke: rgba(var(--ion-color-primary-rgb), 0.15);
+    stroke-width: 16;
   }
 
   .timer-progress {
     fill: none;
-    stroke: #667eea;
-    stroke-width: 5;
-    stroke-dasharray: 282.6; // Circumference of circle (2 * π * 45)
+    stroke: var(--primary-container);
+    stroke-width: 16;
     stroke-linecap: round;
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
@@ -26,7 +34,19 @@
   }
 
   text {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 30vw;
   }
+}
+
+.pushup-counter-container {
+  height: calc(100% - 50px);
+  width: 100%;
+}
+
+.pushup-counter-container--timer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-l);
 }

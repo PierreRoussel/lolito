@@ -8,14 +8,18 @@ import { TrainingSessionPageRoutingModule } from './training-session-routing.mod
 
 import { TrainingSessionPage } from './training-session.page';
 import { ThemeSwitcherComponent } from "../components/shared/theme-switcher/theme-switcher.component";
+import { DiffucltyPipe } from '../training/diffuclty.pipe';
+import { PushupCounterComponent } from "../components/pushup/pushup-counter/pushup-counter.component";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    DiffucltyPipe,
     TrainingSessionPageRoutingModule,
-    ThemeSwitcherComponent
+    ThemeSwitcherComponent,
+    PushupCounterComponent
 ],
   declarations: [TrainingSessionPage]
 })

@@ -14,12 +14,50 @@
   <ion-grid>
     <ion-row class="ion-align-items-center ion-justify-content-center">
       <ion-col>
-        <app-pushup-counter (change)="setCount($event)" />
+        <app-pushup-counter [count]="count" (change)="setCount($event)" />
       </ion-col>
     </ion-row>
   </ion-grid>
+  <ion-modal
+    #modal
+    trigger="open-modal"
+    [initialBreakpoint]="0.25"
+    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+  >
+    <ng-template>
+      <ion-content>
+        <ion-item>
+          <ion-label position="floating">Nombre de pompes</ion-label>
+          <ion-input type="number" [(ngModel)]="count"></ion-input>
+        </ion-item>
+        <ion-toolbar class="ion-padding">
+          <ion-button
+            (click)="saveExercisePushupNumberAndRedirect();
+            modal.dismiss()"
+            expand="block"
+            color="primary"
+            [disabled]="isLoading"
+          >
+            @if(isLoading){ <ion-spinner name="bubbles"></ion-spinner>}
+            Compléter
+          </ion-button>
+          <ion-button
+            [disabled]="isLoading"
+            shape="round"
+            (click)="modal.dismiss()"
+            slot="end"
+            color="tertiary"
+          >
+            <ion-icon slot="icon-only" name="close-outline"></ion-icon>
+          </ion-button>
+        </ion-toolbar>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
-
+<ion-button id="open-modal" slot="fixed" fill="clear" size="large" class="btm">
+  <ion-icon name="chevron-up-outline" slot="icon-only"></ion-icon>
+</ion-button>
 <ion-footer>
   <ion-toolbar class="ion-padding">
     <ion-button
@@ -35,6 +73,7 @@
       shape="round"
       slot="end"
       color="tertiary"
+      (click)="reset()"
     >
       <ion-icon slot="icon-only" name="close-outline"></ion-icon>
     </ion-button>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { TrainingDifficulty, TrainingLevel } from '../training/training.page';
@@ -10,6 +10,9 @@ import { TrainingDifficulty, TrainingLevel } from '../training/training.page';
   styleUrls: ['./training-session.page.scss'],
 })
 export class TrainingSessionPage implements OnInit {
+  @ViewChild('timerSvg', { static: false })
+  timerSvg!: ElementRef<SVGSVGElement>;
+
   level: TrainingLevel;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   training: TrainingDifficulty;
@@ -20,6 +23,30 @@ export class TrainingSessionPage implements OnInit {
   isTrainingStarted: boolean = false;
   progress: number = 0;
   restProgress: number = 1;
+  isEnded: boolean = false;
+  isActionSheetOpen = false;
+
+  public actionSheetButtons = [
+    {
+      text: 'Trop facile',
+      data: {
+        action: 'easy',
+      },
+    },
+    {
+      text: 'Parfait',
+      data: {
+        action: 'normal',
+      },
+    },
+    {
+      text: 'Trop dur',
+      data: {
+        action: 'hard',
+      },
+    },
+  ];
+
   private restTimer: any;
 
   constructor(
@@ -48,11 +75,21 @@ export class TrainingSessionPage implements OnInit {
     clearInterval(this.restTimer);
   }
 
+  checkReps(reps: number) {
+    if (reps <= 0) this.completeSet();
+  }
+
+  skipTimer() {
+    this.restTimeRemaining = 0;
+  }
+
   completeSet() {
     if (!this.isTrainingStarted) {
       this.startTraining();
       return;
     }
+    this.logTrainingSession();
+    return;
     this.currentSet++;
     this.progress = this.currentSet / this.training.sets;
 
@@ -66,7 +103,10 @@ export class TrainingSessionPage implements OnInit {
         if (this.restTimeRemaining <= 0) {
           clearInterval(this.restTimer);
           this.isResting = false;
-          this.presentToast(`Ready for Set ${this.currentSet + 1}!`, 'primary');
+          this.presentToast(
+            `Prêt pour le Set ${this.currentSet + 1}!`,
+            'primary'
+          );
         }
       }, 1000);
     } else {
@@ -74,7 +114,33 @@ export class TrainingSessionPage implements OnInit {
     }
   }
 
+  logResult(event: CustomEvent<any>) {
+    console.log(JSON.stringify(event.detail, null, 2));
+    console.log('event.detail.data', event.detail.data.action);
+    switch (event.detail.data.action) {
+      case 'easy':
+        console.log('this.getNextLevel(2)', this.getNextLevel());
+        break;
+      case 'normal':
+        console.log('this.getNextLevel(2)', this.getNextLevel(0));
+        break;
+      case 'hard':
+        console.log('this.getNextLevel(2)', this.getNextLevel(-1));
+        break;
+      default:
+        this.getNextLevel()
+        break;
+    }
+  }
+
+  private getNextLevel(increment: number = 1) {
+    return this.level.level < 10 ? this.level.level + increment : 10;
+  }
+
   async logTrainingSession() {
+    this.isEnded = true;
+    this.isActionSheetOpen = true;
+
     const totalPushups = this.training.sets * this.training.reps;
     console.log('totalPushups', totalPushups);
     // try {
@@ -106,6 +172,10 @@ export class TrainingSessionPage implements OnInit {
     // }
   }
 
+  setOpen(isOpen: boolean) {
+    this.isActionSheetOpen = isOpen;
+  }
+
   async presentToast(message: string, color: string = 'dark') {
     const toast = await this.toastController.create({
       message,
@@ -116,8 +186,18 @@ export class TrainingSessionPage implements OnInit {
     await toast.present();
   }
 
+  getCircumference(): number {
+    const svgWidth =
+      this.timerSvg?.nativeElement?.getBoundingClientRect().width || 100;
+    const radius = svgWidth * 0.45;
+    return 2 * Math.PI * radius;
+  }
+
   getStrokeDashoffset(): number {
-    const circumference = 2 * Math.PI * 45; // 282.6 for radius = 45
-    return circumference * (1 - this.restProgress); // Decrease from full to 0
+    const svgWidth =
+      this.timerSvg?.nativeElement?.getBoundingClientRect().width || 100; // Default to 100 if not rendered
+    const radius = svgWidth * 0.45; // 45% of actual width
+    const circumference = 2 * Math.PI * radius;
+    return circumference * (1 - this.restProgress);
   }
 }

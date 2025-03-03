@@ -20,6 +20,10 @@ export class ExercisePage {
     this.count = value;
   }
 
+  reset() {
+    this.count = 0;
+  }
+
   saveExercisePushupNumberAndRedirect() {
     this.isLoading = true;
 

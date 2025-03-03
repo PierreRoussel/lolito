@@ -13,3 +13,10 @@ ion-backdrop {
     opacity: 0.5;
   }
 }
+
+.btm {
+  position: absolute;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+}

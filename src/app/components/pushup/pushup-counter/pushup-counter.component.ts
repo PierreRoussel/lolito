@@ -15,9 +15,10 @@ import {
 })
 export class PushupCounterComponent {
   @Input() title = 'Exercice libre';
+  @Input() desc = false;
+  @Input() count = 0;
 
   @Output() change = new EventEmitter<number>();
-  count = 0;
 
   private debounceTimeout: any;
   private debounceDelay = 200;
@@ -25,7 +26,7 @@ export class PushupCounterComponent {
   incrementCount() {
     clearTimeout(this.debounceTimeout);
     this.debounceTimeout = setTimeout(() => {
-      this.count = (this.count || 0) + 1;
+      this.count = (this.count || 0) + (this.desc ? -1 : 1);
       this.change.emit(this.count);
     }, this.debounceDelay);
   }
