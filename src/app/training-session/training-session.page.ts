@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { TrainingDifficulty, TrainingLevel } from '../training/training.page';
+import { SupabaseService } from '../services/supabase/supabase.service';
+import { PushupService } from '../services/pushups/pushup.service';
 
 @Component({
   selector: 'app-training-session',
@@ -51,6 +53,8 @@ export class TrainingSessionPage implements OnInit {
 
   constructor(
     private router: Router,
+    private supabaseService: SupabaseService,
+    private matchService: PushupService,
     private toastController: ToastController
   ) {
     const navigation = this.router.getCurrentNavigation();
@@ -88,8 +92,6 @@ export class TrainingSessionPage implements OnInit {
       this.startTraining();
       return;
     }
-    this.logTrainingSession();
-    return;
     this.currentSet++;
     this.progress = this.currentSet / this.training.sets;
 
@@ -115,21 +117,41 @@ export class TrainingSessionPage implements OnInit {
   }
 
   logResult(event: CustomEvent<any>) {
-    console.log(JSON.stringify(event.detail, null, 2));
-    console.log('event.detail.data', event.detail.data.action);
     switch (event.detail.data.action) {
       case 'easy':
-        console.log('this.getNextLevel(2)', this.getNextLevel());
+        this.insertProgress(this.getNextLevel(2));
         break;
       case 'normal':
-        console.log('this.getNextLevel(2)', this.getNextLevel(0));
+        this.insertProgress(this.getNextLevel());
         break;
       case 'hard':
-        console.log('this.getNextLevel(2)', this.getNextLevel(-1));
+        this.insertProgress(this.getNextLevel(-1));
         break;
       default:
-        this.getNextLevel()
+        this.insertProgress(this.getNextLevel());
         break;
+    }
+  }
+
+  private async insertProgress(nextLevel: number) {
+    const totalPushups = this.training.sets * this.training.reps;
+    try {
+      await this.matchService.addExerciseRecord(totalPushups);
+      await this.supabaseService.updateTrainingProgress(
+        nextLevel,
+        this.difficulty
+      );
+      this.presentToast(
+        `Niveau complété ${this.level.level} ${this.difficulty}! Progression au niveau ${nextLevel}.`,
+        'success'
+      );
+      this.isTrainingStarted = false;
+      this.router.navigate(['/training']);
+    } catch (error) {
+      this.presentToast(
+        'Error logging training session: ' + (error as Error).message,
+        'danger'
+      );
     }
   }
 
@@ -140,36 +162,6 @@ export class TrainingSessionPage implements OnInit {
   async logTrainingSession() {
     this.isEnded = true;
     this.isActionSheetOpen = true;
-
-    const totalPushups = this.training.sets * this.training.reps;
-    console.log('totalPushups', totalPushups);
-    // try {
-    //   await this.matchService.addRecord({
-    //     deaths: 0,
-    //     pushups: totalPushups,
-    //     is_win: false,
-    //     has_pentakill: false,
-    //     has_surrender: false,
-    //     surrendering_team: null,
-    //   });
-
-    //   const newLevel = this.level.level < 10 ? this.level.level + 1 : 10;
-    //   await this.supabaseService.updateTrainingProgress(
-    //     newLevel,
-    //     this.difficulty
-    //   );
-    //   this.presentToast(
-    //     `Completed Level ${this.level.level} ${this.difficulty}! Progressed to Level ${newLevel}.`,
-    //     'success'
-    //   );
-    //   this.isTrainingStarted = false;
-    //   this.router.navigate(['/training']);
-    // } catch (error) {
-    //   this.presentToast(
-    //     'Error logging training session: ' + (error as Error).message,
-    //     'danger'
-    //   );
-    // }
   }
 
   setOpen(isOpen: boolean) {

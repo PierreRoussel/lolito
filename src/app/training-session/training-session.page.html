@@ -62,7 +62,22 @@
     Compléter
   </ion-button>
   } @else if(isEnded){
-  <h1>Entraînement terminé</h1>
+  <ion-grid>
+    <ion-col>
+      <ion-row>
+        <h1>Entraînement terminé</h1>
+      </ion-row>
+      <ion-row>
+        <ion-icon class="main-icon" name="flash-outline" />
+      </ion-row>
+      <ion-row>
+        <ion-button color="success">
+          <ion-icon slot="start" name="checkmark-outline"></ion-icon>
+          Valider</ion-button>
+      </ion-row>
+    </ion-col>
+  </ion-grid>
+
   } @else {
   <div class="pushup-counter-container">
     <app-pushup-counter

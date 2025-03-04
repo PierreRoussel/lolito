@@ -50,3 +50,27 @@
   align-items: center;
   gap: var(--gap-l);
 }
+
+ion-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap-xxl);
+  margin-top: var(--gap-xxl);
+
+  ion-row {
+    margin-top: var(--gap-xxl);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-xxl);
+  }
+}
+.main-icon {
+  margin-top: var(--gap-xxl);
+  font-size: 30vw;
+  color: var(--ion-color-success);
+  border-radius: 50%;
+  border: 8px solid rgba(var(--ion-color-success-rgb), 0.2);
+  padding: var(--gap-xxl);
+}

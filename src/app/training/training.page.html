@@ -16,6 +16,15 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher
+    slot="fixed"
+    [pullFactor]="0.5"
+    [pullMin]="100"
+    [pullMax]="200"
+    (ionRefresh)="handleRefresh($event)"
+  >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-card style="margin-top: var(--gap-l)">
     <ion-card-header>
       <ion-card-title>Mon programme</ion-card-title>
@@ -52,21 +61,53 @@
         <ion-item>
           <ion-row class="ion-align-items-center">
             {{
-            trainingProgram[currentLevel].difficulties[selectedDifficulty].sets
+            trainingProgram[currentLevel-1].difficulties[selectedDifficulty].sets
             }} x {{
-            trainingProgram[currentLevel].difficulties[selectedDifficulty].reps
+            trainingProgram[currentLevel-1].difficulties[selectedDifficulty].reps
             }} - {{
-            trainingProgram[currentLevel].difficulties[selectedDifficulty].rest_seconds
+            trainingProgram[currentLevel-1].difficulties[selectedDifficulty].rest_seconds
             }}s - Total: {{
-            trainingProgram[currentLevel].difficulties[selectedDifficulty].sets
+            trainingProgram[currentLevel-1].difficulties[selectedDifficulty].sets
             *
-            trainingProgram[currentLevel].difficulties[selectedDifficulty].reps
+            trainingProgram[currentLevel-1].difficulties[selectedDifficulty].reps
             }}
           </ion-row>
         </ion-item>
       </ion-item-divider>
     </ion-card-content>
   </ion-card>
+  <ion-modal #modal trigger="open-modal">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button color="medium" (click)="cancel()">Annuler</ion-button>
+          </ion-buttons>
+          <ion-title>Choisir un niveau</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content>
+        <ion-list>
+          <ion-item
+            (click)="newLevel(level)"
+            class="level-item"
+            *ngFor="let level of sortedLevels"
+          >
+            <ion-label class="ion-activatable">
+              <h2>
+                {{ level.difficulty | appDiffuclty }} - Level {{ level.level }}:
+                {{ level.name }}
+              </h2>
+              <p>
+                Sets: {{ level.sets }} | Reps: {{ level.reps }} | Repos: {{
+                level.rest_seconds }}s | Total: {{ level.total_pushups }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <ion-footer class="ion-padding">
@@ -77,6 +118,7 @@
     <ion-button
       color="secondary"
       style="margin-top: var(--gap-l)"
+      id="open-modal"
       expand="block"
       >Choisir LVL</ion-button
     >

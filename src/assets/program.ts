@@ -1,7 +1,7 @@
 export const program = [
   {
     level: 1,
-    name: 'Initial Strength',
+    name: 'Force fondammentale',
     difficulties: {
       beginner: { sets: 3, reps: 5, rest_seconds: 60 },
       intermediate: { sets: 3, reps: 10, rest_seconds: 45 },
@@ -10,7 +10,7 @@ export const program = [
   },
   {
     level: 2,
-    name: 'Early Endurance',
+    name: 'Pré-endurance',
     difficulties: {
       beginner: { sets: 4, reps: 5, rest_seconds: 60 },
       intermediate: { sets: 4, reps: 10, rest_seconds: 45 },
@@ -19,7 +19,7 @@ export const program = [
   },
   {
     level: 3,
-    name: 'Volume Build',
+    name: 'Volume musculaire',
     difficulties: {
       beginner: { sets: 4, reps: 6, rest_seconds: 60 },
       intermediate: { sets: 4, reps: 12, rest_seconds: 45 },
@@ -28,7 +28,7 @@ export const program = [
   },
   {
     level: 4,
-    name: 'Strength Gain',
+    name: 'Gain de force',
     difficulties: {
       beginner: { sets: 5, reps: 5, rest_seconds: 60 },
       intermediate: { sets: 5, reps: 12, rest_seconds: 45 },
@@ -37,7 +37,7 @@ export const program = [
   },
   {
     level: 5,
-    name: 'Midpoint Challenge',
+    name: 'Mi-parcours',
     difficulties: {
       beginner: { sets: 5, reps: 6, rest_seconds: 60 },
       intermediate: { sets: 5, reps: 15, rest_seconds: 45 },
@@ -46,7 +46,7 @@ export const program = [
   },
   {
     level: 6,
-    name: 'Endurance Push',
+    name: 'Endurance de poussée',
     difficulties: {
       beginner: { sets: 6, reps: 6, rest_seconds: 60 },
       intermediate: { sets: 6, reps: 15, rest_seconds: 45 },
@@ -55,7 +55,7 @@ export const program = [
   },
   {
     level: 7,
-    name: 'High Volume Prep',
+    name: 'Préparation au volume',
     difficulties: {
       beginner: { sets: 6, reps: 7, rest_seconds: 60 },
       intermediate: { sets: 6, reps: 18, rest_seconds: 45 },
@@ -64,7 +64,7 @@ export const program = [
   },
   {
     level: 8,
-    name: 'Strength Endurance',
+    name: 'Endurance de force',
     difficulties: {
       beginner: { sets: 7, reps: 6, rest_seconds: 60 },
       intermediate: { sets: 7, reps: 18, rest_seconds: 45 },
@@ -73,7 +73,7 @@ export const program = [
   },
   {
     level: 9,
-    name: 'Near Goal',
+    name: 'Proche du but',
     difficulties: {
       beginner: { sets: 7, reps: 7, rest_seconds: 60 },
       intermediate: { sets: 7, reps: 20, rest_seconds: 45 },

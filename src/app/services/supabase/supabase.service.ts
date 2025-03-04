@@ -106,17 +106,20 @@ export class SupabaseService {
 
   async updateTrainingProgress(
     level: number,
-    difficulty: 'beginner' | 'intermediate' | 'advanced'
+    difficulty: 'beginner' | 'intermediate' | 'advanced' | string
   ): Promise<void> {
     const { data: session } = await this.getSession();
     if (!session.session?.user) throw new Error('User not authenticated');
 
-    const { error } = await this.supabase.from('training_progress').upsert({
-      user_id: session.session.user.id,
-      level,
-      difficulty,
-      completed_at: new Date().toISOString(),
-    });
+    const { error } = await this.supabase.from('training_progress').upsert(
+      {
+        user_id: session.session.user.id,
+        level,
+        difficulty,
+        completed_at: new Date().toISOString(),
+      },
+      { onConflict: 'user_id' }
+    );
 
     if (error) throw error;
   }

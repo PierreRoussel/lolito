@@ -25,3 +25,9 @@
     background-color: var(--surface-dim);
   }
 }
+
+.level-item {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--gap);
+}
