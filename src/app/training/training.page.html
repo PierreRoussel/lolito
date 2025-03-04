@@ -16,6 +16,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <div class="p-container"></div>
   <ion-refresher
     slot="fixed"
     [pullFactor]="0.5"
@@ -25,6 +26,22 @@
   >
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  @if(isNewby){
+  <div class="newby-container">
+    <h1>On dirait que tu es nouveau par ici ?</h1>
+    <div class="newby-reps">
+      <span>Tu connais ton maximum de pompes d'affilé ?</span>
+      <div class="oui-non">
+        <ion-button shape="round" color="primary">
+          Oui
+        </ion-button>
+        <ion-button shape="round" color="secondary">
+          Non
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  } @else {
   <ion-card style="margin-top: var(--gap-l)">
     <ion-card-header>
       <ion-card-title>Mon programme</ion-card-title>
@@ -76,6 +93,7 @@
       </ion-item-divider>
     </ion-card-content>
   </ion-card>
+  }
   <ion-modal #modal trigger="open-modal">
     <ng-template>
       <ion-header>
@@ -112,7 +130,11 @@
 
 <ion-footer class="ion-padding">
   <ion-col>
-    <ion-button (click)="startTrainingSession()" expand="block" size="large"
+    <ion-button
+      [disabled]="isNewby"
+      (click)="startTrainingSession()"
+      expand="block"
+      size="large"
       >Let's go</ion-button
     >
     <ion-button

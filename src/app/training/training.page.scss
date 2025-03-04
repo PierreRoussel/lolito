@@ -31,3 +31,37 @@
   overflow: hidden;
   padding-block: var(--gap);
 }
+
+.newby-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  gap: var(--gap);
+  margin-top: var(--gap-xxxl);
+  position: relative;
+  z-index: 11;
+
+  h1 {
+    padding-inline: var(--gap-xxl);
+  }
+
+  .newby-reps {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: var(--gap-xxxl);
+    padding-inline: var(--gap-xxl);
+    display: flex;
+    gap: var(--gap-xxl);
+
+    .oui-non {
+      display: flex;
+      gap: var(--gap-xxl);
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+

@@ -54,6 +54,8 @@ export class TrainingPage implements OnInit {
   currentSet: number = 0;
   isResting: boolean = false;
   restTimeRemaining: number = 0;
+  isNewby = false;
+  knowNumber = false
 
   constructor(
     private router: Router,
@@ -71,6 +73,8 @@ export class TrainingPage implements OnInit {
       if (progress) {
         this.currentLevel = progress.level;
         this.selectedDifficulty = progress.difficulty;
+      } else {
+        this.isNewby = true;
       }
     } catch (error) {
       this.presentToast(

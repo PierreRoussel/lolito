@@ -29,6 +29,21 @@ body {
   color: var(--on-surface);
 }
 
+.p-container {
+  z-index: -100;
+  &::before {
+    height: 30vh;
+    left: 0;
+    width: 100%;
+    right: 0;
+    position: absolute;
+    top: 0;
+    background: transparent;
+    background: radial-gradient(125% 125% at 50% 10%, var(--surface) 40%, var(--on-primary-container) 100%);
+    transform: rotate(180deg);
+    content: "";
+  }
+}
 
 ion-card {
   border-radius: var(--border-radius-l);

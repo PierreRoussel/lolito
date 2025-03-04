@@ -1,7 +1,8 @@
 <app-header [withBbtn]="true" title="Amis" />
 
-<ion-content>
-  <ion-card>
+<ion-content [fullscreen]="true">
+  <div class="p-container"></div>
+  <ion-card style="margin-top: var(--gap-xxl)">
     <ion-card-header>
       <ion-card-title>Ajouter un ami</ion-card-title>
     </ion-card-header>
@@ -58,6 +59,4 @@
   </ion-card>
 </ion-content>
 
-<ion-footer>
-
-</ion-footer>
+<ion-footer> </ion-footer>
