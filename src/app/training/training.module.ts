@@ -9,6 +9,7 @@ import { TrainingPageRoutingModule } from './training-routing.module';
 import { TrainingPage } from './training.page';
 import { ThemeSwitcherComponent } from "../components/shared/theme-switcher/theme-switcher.component";
 import { DiffucltyPipe } from './diffuclty.pipe';
+import { PushupCounterComponent } from "../components/pushup/pushup-counter/pushup-counter.component";
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { DiffucltyPipe } from './diffuclty.pipe';
     IonicModule,
     TrainingPageRoutingModule,
     ThemeSwitcherComponent,
-    DiffucltyPipe
+    DiffucltyPipe,
+    PushupCounterComponent
 ],
   declarations: [TrainingPage]
 })

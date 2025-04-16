@@ -9,6 +9,6 @@ export class DiffucltyPipe implements PipeTransform {
     ...args: unknown[]
   ): unknown {
     const result = value === 'beginner' ? 'Débutant' : 'Intermédiaire';
-    return value === 'advanced' ? 'Avancé' : result;
+    return value === 'advanced' ? 'Elite' : result;
   }
 }

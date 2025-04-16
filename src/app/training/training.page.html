@@ -30,15 +30,39 @@
   <div class="newby-container">
     <h1>On dirait que tu es nouveau par ici ?</h1>
     <div class="newby-reps">
+      @switch (newByStep) { @case (1) {
+      <span>Alors dis moi tout, quel est ton max de pompes d'affilé ?</span>
+      <ion-input type="number" [(ngModel)]="maxNewByPushups"></ion-input>
+      <ion-button (click)="handleMaxPushups()" color="success" shape="round"
+        >Valider</ion-button
+      >
+      } @case (2) {
+      <span>Pompe moi ça alors !</span>
+      <app-pushup-counter
+        [count]="maxNewByPushups"
+        (change)="setMaxPushup($event)"
+      />
+      <ion-input type="number" [(ngModel)]="maxNewByPushups"></ion-input>
+      <ion-button (click)="handleMaxPushups()" color="success" shape="round"
+        >Valider</ion-button
+      >
+      } @case (3) {
+      <span>On calcule ton niveau...</span>
+      <div style="width: 100%; text-align: center;">
+
+        <ion-spinner name="bubbles"></ion-spinner>
+      </div>
+      } @default {
       <span>Tu connais ton maximum de pompes d'affilé ?</span>
       <div class="oui-non">
-        <ion-button shape="round" color="primary">
+        <ion-button (click)="setNewbyStep(1)" shape="round" color="primary">
           Oui
         </ion-button>
-        <ion-button shape="round" color="secondary">
+        <ion-button (click)="setNewbyStep(2)" shape="round" color="secondary">
           Non
         </ion-button>
       </div>
+      }}
     </div>
   </div>
   } @else {
@@ -130,6 +154,7 @@
 
 <ion-footer class="ion-padding">
   <ion-col>
+    @if(!isNewby){
     <ion-button
       [disabled]="isNewby"
       (click)="startTrainingSession()"
@@ -137,6 +162,7 @@
       size="large"
       >Let's go</ion-button
     >
+    }
     <ion-button
       color="secondary"
       style="margin-top: var(--gap-l)"

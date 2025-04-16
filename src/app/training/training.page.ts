@@ -55,7 +55,8 @@ export class TrainingPage implements OnInit {
   isResting: boolean = false;
   restTimeRemaining: number = 0;
   isNewby = false;
-  knowNumber = false
+  newByStep = 0;
+  maxNewByPushups = 0;
 
   constructor(
     private router: Router,
@@ -180,6 +181,30 @@ export class TrainingPage implements OnInit {
     setTimeout(() => {
       this.loadProgress();
       (event.target as HTMLIonRefresherElement).complete();
+    }, 2000);
+  }
+
+  setNewbyStep(step: number) {
+    this.newByStep = step;
+  }
+
+  setMaxPushup(step: number) {
+    this.maxNewByPushups = step;
+  }
+
+  handleMaxPushups() {
+    this.newByStep = 3;
+    const modifier =
+      this.maxNewByPushups < 10 ? 1 : this.maxNewByPushups > 25 ? 3 : 2;
+    const goal = this.maxNewByPushups / 3 + modifier;
+    const closest = this.sortedLevels.reduce(function (prev, curr) {
+      return Math.abs(curr.reps - goal) < Math.abs(prev.reps - goal)
+        ? curr
+        : prev;
+    });
+    setTimeout(() => {
+      this.isNewby = false;
+      this.newLevel(closest)
     }, 2000);
   }
 }

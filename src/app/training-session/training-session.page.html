@@ -8,14 +8,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content [fullscreen]="true">
+  <div class="p-container"></div>
   <ion-progress-bar
     [value]="progress"
     color="primary"
     *ngIf="isTrainingStarted"
   ></ion-progress-bar>
   @if(!isTrainingStarted) {
-  <ion-card style="margin: auto">
+  <ion-card style="margin-top: var(--gap-l)">
     <ion-card-header>
       <ion-card-title
         >{{ level.name }} ({{difficulty | appDiffuclty}})</ion-card-title
@@ -73,7 +74,8 @@
       <ion-row>
         <ion-button color="success">
           <ion-icon slot="start" name="checkmark-outline"></ion-icon>
-          Valider</ion-button>
+          Valider</ion-button
+        >
       </ion-row>
     </ion-col>
   </ion-grid>
@@ -83,6 +85,7 @@
     <app-pushup-counter
       (change)="checkReps($event)"
       [desc]="true"
+      [title]=" this.currentSet +' / '+this.training.sets"
       [count]="training.reps"
     />
   </div>

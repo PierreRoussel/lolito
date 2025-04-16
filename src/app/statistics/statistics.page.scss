@@ -22,13 +22,13 @@ ion-card {
   align-items: center;
   overflow: visible;
   margin: 0;
-  width: var(--gap-xxl);
   position: relative;
 }
 
 .bar {
   margin-top: auto;
   width: 100%;
+  width: 14px;
   border-radius: 8px 8px 0 0;
   background: linear-gradient(to top, var(--surface-container), var(--primary-container));
   transition:
@@ -43,7 +43,8 @@ ion-card {
     position: absolute;
     top: -24px;
     text-align: center;
-    width: 100%;
+    transform: rotate(-45deg);
+    width: auto;
   }
 }
 
